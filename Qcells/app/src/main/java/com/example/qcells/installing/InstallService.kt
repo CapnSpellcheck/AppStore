@@ -1,7 +1,7 @@
 package com.example.qcells.installing
 
-import com.example.qcells.storage.ApplicationDao
 import com.example.qcells.model.InstallStatus
+import com.example.qcells.repository.ApplicationRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.*
@@ -11,14 +11,14 @@ import kotlin.uuid.Uuid
 
 @OptIn(ExperimentalUuidApi::class, DelicateCoroutinesApi::class)
 @Singleton
-class InstallService @Inject constructor(private val applicationDao: ApplicationDao) {
+class InstallService @Inject constructor(private val applicationRepository: ApplicationRepository) {
    fun installApplication(uuid: Uuid) {
       // using GlobalScope because it is pretending to be a service in the background. OK for the
       // purpose of simulating.
       GlobalScope.launch {
-         applicationDao.setInstallStatus(uuid.toHexString(), InstallStatus.INSTALLING)
+         applicationRepository.setInstallStatus(uuid.toHexString(), InstallStatus.INSTALLING)
          delay(Random.nextInt(from = 5000, until = 30000).toLong())
-         applicationDao.setInstallStatus(uuid.toHexString(), InstallStatus.INSTALLED)
+         applicationRepository.setInstallStatus(uuid.toHexString(), InstallStatus.INSTALLED)
       }
    }
 
@@ -26,9 +26,9 @@ class InstallService @Inject constructor(private val applicationDao: Application
       // using GlobalScope because it is pretending to be a service in the background. OK for the
       // purpose of simulating.
       GlobalScope.launch {
-         applicationDao.setInstallStatus(uuid.toHexString(), InstallStatus.UNINSTALLING)
+         applicationRepository.setInstallStatus(uuid.toHexString(), InstallStatus.UNINSTALLING)
          delay(Random.nextInt(from = 500, until = 10000).toLong())
-         applicationDao.setInstallStatus(uuid.toHexString(), InstallStatus.NOT_INSTALLED)
+         applicationRepository.setInstallStatus(uuid.toHexString(), InstallStatus.NOT_INSTALLED)
       }
    }
 }

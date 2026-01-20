@@ -2,6 +2,7 @@ package com.example.qcells.di
 
 import android.content.Context
 import com.example.qcells.installing.InstallService
+import com.example.qcells.repository.ApplicationRepository
 import com.example.qcells.storage.AppDatabase
 import com.example.qcells.storage.ApplicationDao
 import dagger.Module
@@ -22,13 +23,13 @@ object AppModule {
     }
 
     @Provides
-    fun provideApplicationDao(appDatabase: AppDatabase): ApplicationDao {
+    fun provideApplicationRepository(appDatabase: AppDatabase): ApplicationRepository {
         return appDatabase.applicationDao()
     }
 
     @Provides
     @Singleton
-    fun provideInstallService(applicationDao: ApplicationDao): InstallService {
+    fun provideInstallService(applicationDao: ApplicationRepository): InstallService {
         return InstallService(applicationDao)
     }
 

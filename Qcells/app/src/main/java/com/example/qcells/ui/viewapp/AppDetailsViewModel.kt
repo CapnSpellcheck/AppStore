@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.qcells.installing.InstallService
 import com.example.qcells.model.Application
-import com.example.qcells.storage.ApplicationDao
 import com.example.qcells.model.InstallStatus
+import com.example.qcells.repository.ApplicationRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -21,11 +21,11 @@ private const val LOG_TAG = "AppDetailsViewModel"
 @OptIn(ExperimentalUuidApi::class)
 @HiltViewModel(assistedFactory = AppDetailsViewModel.Factory::class)
 class AppDetailsViewModel @AssistedInject constructor(
-   val applicationDao: ApplicationDao,
+   val applicationRepository: ApplicationRepository,
    val installService: InstallService,
    @Assisted val appUuidHex: String
 ) : ViewModel() {
-   val applicationFlow: StateFlow<Application?> = applicationDao.getAsFlow(appUuidHex)
+   val applicationFlow: StateFlow<Application?> = applicationRepository.getAsFlow(appUuidHex)
       .stateIn(
          scope = viewModelScope,
          started = SharingStarted.WhileSubscribed(5000),

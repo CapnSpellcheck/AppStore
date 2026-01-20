@@ -31,6 +31,7 @@ import kotlin.uuid.Uuid
 ) {
    val appsState = viewModel.filteredApplications.collectAsStateWithLifecycle()
    val query by viewModel.query.collectAsStateWithLifecycle()
+   val hasLoadedData by viewModel.hasLoadedData.collectAsStateWithLifecycle()
 
    Scaffold(
       topBar = {
@@ -62,8 +63,7 @@ import kotlin.uuid.Uuid
                AppRow(app, viewAppAction)
             }
          }
-         if (appsState.value.isEmpty()) {
-            @SuppressLint("StateFlowValueCalledInComposition")
+         if (appsState.value.isEmpty() && !hasLoadedData) {
             val reason = if (query.isEmpty()) "App Store is EMPTY!" else "No results"
             Text(reason, modifier = Modifier.align(Alignment.Center), style = MaterialTheme.typography.headlineMedium)
          }

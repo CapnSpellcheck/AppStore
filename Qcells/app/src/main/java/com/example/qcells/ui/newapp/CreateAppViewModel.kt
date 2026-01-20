@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.qcells.model.Application
 import com.example.qcells.model.ApplicationCategory
-import com.example.qcells.storage.ApplicationDao
 import com.example.qcells.model.InstallStatus
+import com.example.qcells.repository.ApplicationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
@@ -18,7 +18,7 @@ import kotlin.uuid.Uuid
 
 @OptIn(ExperimentalUuidApi::class)
 @HiltViewModel
-class CreateAppViewModel @Inject constructor(val applicationDao: ApplicationDao) : ViewModel() {
+class CreateAppViewModel @Inject constructor(val applicationRepository: ApplicationRepository) : ViewModel() {
    val events = MutableSharedFlow<Event>(extraBufferCapacity = 1)
 
    fun createApp(name: String, developerName: String, category: ApplicationCategory, rating: Int?, description: String) {
@@ -45,7 +45,7 @@ class CreateAppViewModel @Inject constructor(val applicationDao: ApplicationDao)
             iconColorAsInt = colorInt,
             description = description,
          )
-         applicationDao.create(app)
+         applicationRepository.create(app)
          events.tryEmit(Event.AppCreated)
       }
    }

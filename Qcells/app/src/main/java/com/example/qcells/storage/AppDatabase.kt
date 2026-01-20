@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.qcells.model.Application
 import com.example.qcells.storage.ApplicationDao
-import com.example.qcells.model.DummyData
+import com.example.qcells.DummyData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

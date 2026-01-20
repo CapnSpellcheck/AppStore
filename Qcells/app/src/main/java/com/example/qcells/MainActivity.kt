@@ -60,11 +60,3 @@ class MainActivity : ComponentActivity() {
       }
    }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-   QcellsTheme {
-//      Greeting("Android")
-   }
-}
