@@ -2,9 +2,9 @@ package com.example.qcells.di
 
 import android.content.Context
 import com.example.qcells.installing.InstallService
+import com.example.qcells.installing.StandardInstallService
 import com.example.qcells.repository.ApplicationRepository
 import com.example.qcells.storage.AppDatabase
-import com.example.qcells.storage.ApplicationDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,7 +30,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideInstallService(applicationDao: ApplicationRepository): InstallService {
-        return InstallService(applicationDao)
+        return StandardInstallService(applicationDao)
     }
 
 }
