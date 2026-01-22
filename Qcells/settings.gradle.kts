@@ -21,3 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Qcells"
 include(":app")
+include(":features:applications:presentation")
+include(":features:applications:data")
+include(":features:applications:domain")

@@ -1,3 +1,5 @@
 <resources>
    <string name="app_name">Qcells</string>
+   <string name="title_presentation">Applications UI</string>
+   <string name="title_data">Applications Data</string>
 </resources>
